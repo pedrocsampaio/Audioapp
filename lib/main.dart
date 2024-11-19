@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:audio_app/DesignSystem/Pages/Login/login_screen.dart'; // Substitua pelo caminho correto para o arquivo login_screen.dart
+import 'package:audio_app/DesignSystem/Pages/Login/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Remove o banner de debug
+      debugShowCheckedModeBanner: false, 
       title: 'Login Screen App',
       theme: ThemeData(
-        primarySwatch: Colors.green, // Define o tema do app
-        fontFamily: 'DMSans', // Certifique-se de que a fonte DM Sans foi configurada
+        primarySwatch: Colors.green,
+        fontFamily: 'DMSans',
       ),
-      home: LoginScreen(), // A tela inicial do app
+      home: LoginScreen(),
     );
   }
 }
