@@ -30,3 +30,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/background.jpg
+    - assets/images/headphoneCard.png
+    - assets/images/headphone.png
+    - assets/images/cable.png
