@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../Components/InputField/input_field.dart';
-import '../../Components/Buttons/ActionButton/action_button.dart';
+import '../../DesignSystem/Components/Buttons/ActionButton/action_button.dart';
+import '../../DesignSystem/Components/InputField/input_field.dart';
+import 'login_services.dart';
 
 class LoginScreen extends StatelessWidget {
+  // Controladores para os campos de texto
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("Assets/Images/background.jpg"),
+          image: AssetImage("assets/images/background.jpg"),
           fit: BoxFit.cover,
         ),
       ),
@@ -51,8 +56,9 @@ class LoginScreen extends StatelessWidget {
                 // Campo de e-mail
                 InputField(
                   hintText: "Email",
+                  controller: emailController, // Adicionado
                   icon: SvgPicture.asset(
-                    "../../Assets/Icons/email_icon.svg",
+                    "../../assets/Icons/email_icon.svg",
                     width: 20,
                     height: 20,
                   ),
@@ -62,8 +68,9 @@ class LoginScreen extends StatelessWidget {
                 // Campo de senha
                 InputField(
                   hintText: "Password",
+                  controller: passwordController, // Adicionado
                   icon: SvgPicture.asset(
-                    "../../Assets/Icons/lock.svg",
+                    "../../assets/Icons/lock.svg",
                     width: 20,
                     height: 20,
                   ),
@@ -81,14 +88,14 @@ class LoginScreen extends StatelessWidget {
                       'Forgot Password',
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontFamily: 'DM Sans',
-                      fontWeight: FontWeight.w700,
-                      height: 0.10,
-                      letterSpacing: 0.20,
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontFamily: 'DM Sans',
+                        fontWeight: FontWeight.w700,
+                        height: 0.10,
+                        letterSpacing: 0.20,
                       ),
-                    )
+                    ),
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -99,7 +106,9 @@ class LoginScreen extends StatelessWidget {
                   child: ActionButton(
                     text: "Sign In",
                     onPressed: () {
+                      // Simular autenticação bem-sucedida antes da navegação
                       print("Sign In button clicked!");
+                      LoginRouter.navigateToHome(context);
                     },
                   ),
                 ),
@@ -132,7 +141,7 @@ class LoginScreen extends StatelessWidget {
                           fontFamily: 'DM Sans',
                           fontWeight: FontWeight.w700,
                           height: 0.10,
-                          letterSpacing: 0.20, // Verde
+                          letterSpacing: 0.20,
                         ),
                       ),
                     ),

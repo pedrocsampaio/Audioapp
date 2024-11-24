@@ -7,7 +7,7 @@ class InputField extends StatelessWidget {
   const InputField({
     Key? key,
     required this.hintText,
-    required this.icon,
+    required this.icon, required TextEditingController controller,
   }) : super(key: key);
 
   @override
