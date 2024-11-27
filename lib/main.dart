@@ -1,38 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'DesignSystem/Components/Cards/product_view_model.dart';
-import 'DesignSystem/Components/Carousel/carousel_view_model.dart';
-import 'DesignSystem/Components/Carousel/category_view_model.dart';
-import 'DesignSystem/Components/InputField/input_field_view_model.dart';
-import 'Scenes/Login/login_screen.dart'; // Substitua pelo caminho correto para o arquivo login_screen.dart
+import 'Scenes/search/search.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => CategoryViewModel()),
-        ChangeNotifierProvider(create: (_) => StyledInputFieldViewModel()),
-        ChangeNotifierProvider(create: (_) => ProductViewModel()),
-        Provider<List<CarouselBannerViewModel>>(create: (_) => bannerList),
-      ],
-      child: MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Remove o banner de debug
-      title: 'Login Screen App',
+      title: 'Search Page',
       theme: ThemeData(
-        primarySwatch: Colors.green, // Define o tema do app
-        fontFamily: 'DMSans', // Certifique-se de que a fonte DM Sans foi configurada
+        primarySwatch: Colors.blue,
+        fontFamily: 'DM Sans', // Garantir que 'DM Sans' seja carregada
       ),
-      home: LoginScreen(), // A tela inicial do app
+      home: const SearchPage(), // Chama a tela de pesquisa
+      debugShowCheckedModeBanner: false, // Remove a faixa de debug
     );
   }
 }
-
