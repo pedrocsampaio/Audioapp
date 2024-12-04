@@ -6,12 +6,11 @@ import '../../DesignSystem/Components/Carousel/carousel.dart';
 import '../../DesignSystem/Components/Carousel/carousel_view_model.dart';
 import '../../DesignSystem/Components/Carousel/category.dart';
 import '../../DesignSystem/Components/Carousel/category_view_model.dart';
-import '../../DesignSystem/Components/InputField/input_field.dart';
-import '../../DesignSystem/Components/InputField/input_field_view_model.dart';
 
 class HomeScreen extends StatelessWidget {
-  // Controlador do campo de pesquisa
   final TextEditingController searchController = TextEditingController();
+
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class HomeScreen extends StatelessWidget {
             fontSize: 16,
             fontFamily: 'DM Sans',
             fontWeight: FontWeight.w400,
-            height: 0.08,
+            height: 1.2,
             letterSpacing: 0.20,
           ),
         ),
@@ -41,6 +40,7 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 25),
                   const Text(
                     "What are you looking for today?",
                     style: TextStyle(
@@ -53,20 +53,28 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  Consumer<StyledInputFieldViewModel>(
-                    builder: (context, viewModel, child) {
-                      return InputField(
-                        hintText: "Search headphone",
-                        controller: searchController, // Adicionado
-                        icon: const Icon(Icons.search, color: Color(0xFFBABABA)),
-                      );
+                  TextField(
+                    controller: searchController,
+                    decoration: const InputDecoration(
+                      hintText: "Search headphone",
+                      prefixIcon: Icon(Icons.search, color: Color(0xFFBABABA)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                    ),
+                    onSubmitted: (value) {
+                      if (value.isNotEmpty) {
+                        Navigator.pushNamed(
+                          context,
+                          '/search',
+                          arguments: 'Sua pesquisa aqui', // Passe a string de pesquisa
+                        );
+                      }
                     },
                   ),
-                  const SizedBox(height: 25),
                 ],
               ),
             ),
-            // Container com bordas arredondadas e padding
             Container(
               width: double.infinity,
               decoration: const BoxDecoration(
@@ -109,28 +117,26 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 20),
-                  // Carrossel de banners
-                  Consumer<List<CarouselBannerViewModel>>(
-                    builder: (context, bannerList, child) {
-                      return SizedBox(
-                        height: 200,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: bannerList.length,
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(width: 15),
-                          itemBuilder: (context, index) {
-                            final banner = bannerList[index];
-                            return CarouselBanner(
-                              title: banner.title,
-                              subtitle: banner.subtitle,
-                              imagePath: banner.imagePath,
-                              onPressed: banner.onPressed,
-                            );
-                          },
-                        ),
-                      );
-                    },
+                  // Carrossel de banners usando bannerList diretamente
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: SizedBox(
+                      height: 200,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: bannerList.length,
+                        separatorBuilder: (context, index) => const SizedBox(width: 15),
+                        itemBuilder: (context, index) {
+                          final banner = bannerList[index];
+                          return CarouselBanner(
+                            title: banner.title,
+                            subtitle: banner.subtitle,
+                            imagePath: banner.imagePath,
+                            onPressed: banner.onPressed,
+                          );
+                        },
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   // Título "Featured Products" com "See All"
@@ -164,8 +170,7 @@ class HomeScreen extends StatelessWidget {
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemCount: productViewModel.products.length,
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(width: 15),
+                          separatorBuilder: (context, index) => const SizedBox(width: 15),
                           itemBuilder: (context, index) {
                             final product = productViewModel.products[index];
                             return ProductCard(
@@ -175,9 +180,15 @@ class HomeScreen extends StatelessWidget {
                               rating: product["rating"]!,
                               reviews: product["reviews"]!,
                               onTap: () {
-                                print("Selected: ${product["productName"]}");
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/productDetails',
+                                    arguments: product.map((key, value) => MapEntry(key, value.toString())),
+                                  );
+
+
                               },
-                              title: '',
+                              title: product["productName"]!,
                             );
                           },
                         ),

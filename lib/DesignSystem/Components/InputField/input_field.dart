@@ -7,7 +7,7 @@ class InputField extends StatelessWidget {
   const InputField({
     Key? key,
     required this.hintText,
-    required this.icon, required TextEditingController controller,
+    required this.icon, required TextEditingController controller, required Null Function() onTap, required bool readOnly, required Null Function(dynamic value) onSubmitted,
   }) : super(key: key);
 
   @override

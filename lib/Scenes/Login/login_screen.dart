@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                     "../../assets/Icons/email_icon.svg",
                     width: 20,
                     height: 20,
-                  ),
+                  ), onTap: () {  }, readOnly: false, onSubmitted: (value) {  },
                 ),
                 const SizedBox(height: 20),
 
@@ -73,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                     "../../assets/Icons/lock.svg",
                     width: 20,
                     height: 20,
-                  ),
+                  ), onTap: () {  }, readOnly: false, onSubmitted: (value) {  },
                 ),
                 const SizedBox(height: 20),
 

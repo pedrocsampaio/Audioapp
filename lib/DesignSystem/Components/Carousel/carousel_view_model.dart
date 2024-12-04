@@ -33,3 +33,4 @@ final List<CarouselBannerViewModel> bannerList = [
     },
   ),
 ];
+
