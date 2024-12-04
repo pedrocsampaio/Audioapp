@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import '../../DesignSystem/Components/InputField/input_field.dart';
 import '../../DesignSystem/Components/Product/product_list_item.dart';
 import '../../DesignSystem/Components/Product/product_list_item_view_model.dart';
 import '../../DesignSystem/Components/Topbar/title_page.dart';
 
 class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  final String searchQuery; // Parâmetro para receber a busca
+
+  SearchPage({Key? key, required this.searchQuery}) : super(key: key);
+
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    searchController.text = searchQuery; // Preenche o campo com a busca realizada
+
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: TitlePage(
         title: 'Search',
         leftIcon: Icons.arrow_back,
@@ -16,100 +24,39 @@ class SearchPage extends StatelessWidget {
         onLeftIconPressed: () {
           Navigator.pop(context);
         },
-        onRightIconPressed: () {
-          // Ação do carrinho
-        },
+        onRightIconPressed: () {},
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 12),
-            TextField(
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: 'Search headphone',
-                filled: true,
-                fillColor: const Color(0xFFF6F6F6),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
-                ),
-              ),
+            InputField(
+              hintText: 'Search headphone',
+              icon: const Icon(Icons.search, color: Color(0xFFBABABA)),
+              controller: searchController,
+              readOnly: false,
+              onTap: () {}, onSubmitted: (value) {  },
             ),
-            const SizedBox(height: 24),
-            const Text(
-              'Lastest search',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'DM Sans',
-              ),
-            ),
-            const SizedBox(height: 12),
-            Row(
-              children: const [
-                Icon(Icons.history, size: 20),
-                SizedBox(width: 8),
-                Text('TMA2 Wireless'),
-                Spacer(),
-                Icon(Icons.close, size: 20),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: const [
-                Icon(Icons.history, size: 20),
-                SizedBox(width: 8),
-                Text('Cable'),
-                Spacer(),
-                Icon(Icons.close, size: 20),
-              ],
-            ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
             const Text(
               'Popular product',
               style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                fontSize: 16,
                 fontFamily: 'DM Sans',
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
               ),
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: ListView(
-                children: [
-                  ProductListItem(
-                    viewModel: ProductListItemViewModel(
-                      imageUrl: 'https://via.placeholder.com/150',
-                      productName: 'TMA-2 Comfort Wireless',
-                      price: 270.0,
-                      rating: 4.6,
-                      reviewCount: 86,
-                    ),
-                  ),
-                  const SizedBox(height: 25),
-                  ProductListItem(
-                    viewModel: ProductListItemViewModel(
-                      imageUrl: 'https://via.placeholder.com/150',
-                      productName: 'TMA-2 DJ',
-                      price: 270.0,
-                      rating: 4.6,
-                      reviewCount: 86,
-                    ),
-                  ),
-                  const SizedBox(height: 25),
-                  ProductListItem(
-                    viewModel: ProductListItemViewModel(
-                      imageUrl: 'https://via.placeholder.com/150',
-                      productName: 'TMA-2 Move Wireless',
-                      price: 270.0,
-                      rating: 4.6,
-                      reviewCount: 86,
-                    ),
-                  ),
-                ],
+              child: ListView.separated(
+                itemCount: ProductListItemViewModel.sampleProducts.length,
+                itemBuilder: (context, index) {
+                  final product = ProductListItemViewModel.sampleProducts[index];
+                  return ProductListItem(viewModel: product);
+                },
+                separatorBuilder: (context, index) => const SizedBox(height: 25),
               ),
             ),
           ],
